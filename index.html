@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF6EC">
+<meta name="description" content="Libreta de gimnasio: anota peso y repeticiones de cada serie y mira tu progreso real.">
+<title>El Verdadero</title>
+
+<!-- Para poder instalarla en el celular desde el navegador -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<!-- El iPhone no acepta íconos .svg en la pantalla de inicio: necesita un .png -->
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="El Verdadero">
+
+<!-- Tipografías de Google. Sin internet no cargan y se usan las del
+     teléfono (ver --display, --cuerpo y --dato en styles.css). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Arriba: el título de la pantalla y el botón "Atrás" -->
+<header class="barra"><div class="barra-in" id="barra"></div></header>
+
+<!-- En medio: aquí se dibuja cada pantalla (lo hace el código de js/) -->
+<main class="hoja" id="app"></main>
+
+<!-- Abajo: las tres pestañas. Se esconden durante el alta. -->
+<nav class="nav" id="nav" hidden>
+  <div class="nav-in">
+    <button data-act="tab" data-v="workout"><span class="ic">✍️</span>Workout</button>
+    <button data-act="tab" data-v="progreso"><span class="ic">📈</span>Progreso</button>
+    <button data-act="tab" data-v="usuario"><span class="ic">🏅</span>Usuario</button>
+  </div>
+</nav>
+
+<!-- El funcionamiento, dividido por temas. El ORDEN importa: cada
+     archivo usa cosas de los que van antes. arranque.js va al final. -->
+<script src="js/datos-ejercicios.js"></script>
+<script src="js/datos-logros.js"></script>
+<script src="js/datos-frases.js"></script>
+<script src="js/guardado.js"></script>
+<script src="js/utilidades.js"></script>
+<script src="js/estadisticas.js"></script>
+<script src="js/graficas.js"></script>
+<script src="js/navegacion.js"></script>
+<script src="js/mapa.js"></script>
+<script src="js/pantallas-alta.js"></script>
+<script src="js/pantallas-workout.js"></script>
+<script src="js/pantallas-progreso.js"></script>
+<script src="js/pantallas-usuario.js"></script>
+<script src="js/compartir.js"></script>
+<script src="js/acciones.js"></script>
+<script src="js/ejemplo.js"></script>
+<script src="js/arranque.js"></script>
+</body>
+</html>

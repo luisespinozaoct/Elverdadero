@@ -1,0 +1,398 @@
+/* ===========================================================
+   EL VERDADERO — estilos (cómo se ve la app)
+   -----------------------------------------------------------
+   Concepto de diseño: hoja de libreta usada (papel crema con
+   rayas tenues y margen rojo), datos escritos con pluma azul.
+   Lo que se celebra va en dorado; los récords, en rojo.
+
+   El funcionamiento está en la carpeta js/ y la estructura en
+   index.html. Todos los colores están juntos aquí abajo, en
+   :root, para cambiarlos en un solo lugar.
+   =========================================================== */
+
+/* --- Arranque: quita los márgenes que trae el navegador y
+       deja libre el espacio de la muesca y la barra del celular --- */
+:root{
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none !important}
+
+:root{
+  /* --- Colores (tema claro: libreta de día) --- */
+  --papel:#FBF6EC;         /* fondo general, crema tirando a blanco */
+  --papel-2:#FFFDF8;       /* tarjetas, un tono más claro */
+  --raya:#E2D9C6;          /* las rayas de la libreta */
+  --margen:#D9A6A0;        /* la línea roja del margen */
+  --tinta:#211E18;         /* texto principal */
+  --tinta-2:#6E665A;       /* texto secundario */
+  --pluma:#1F3FA8;         /* azul de pluma: acento principal */
+  --pluma-suave:#E6EAF8;   /* fondo suave del acento */
+  --rojo:#B3261E;          /* récords y avisos */
+  --oro:#A5761B;           /* logros */
+  --oro-suave:#F6EBD2;
+  --verde:#2F6B45;         /* confirmaciones */
+  --borde:#DCD2BE;
+  --sombra:0 1px 0 rgba(33,30,24,.07);
+  --btn-fg:#FFFFFF;
+
+  /* --- Tipografía --- */
+  --display:"Anton","Arial Narrow",Impact,sans-serif;
+  --cuerpo:"Barlow",system-ui,-apple-system,sans-serif;
+  --dato:"Barlow Semi Condensed","Barlow",system-ui,sans-serif;
+
+  --radio:10px;
+  --nav-alto:64px;
+}
+
+/* --- Tema oscuro: se activa solo si el teléfono está en modo oscuro --- */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papel:#17150F; --papel-2:#201D16; --raya:#2E2A21; --margen:#5A3330;
+    --tinta:#F3EEE2; --tinta-2:#A79C8A; --pluma:#8EA6FF; --pluma-suave:#1E2440;
+    --rojo:#FF6B5E; --oro:#E0B251; --oro-suave:#2C2518; --verde:#6FD79B;
+    --borde:#332F25; --sombra:0 1px 0 rgba(0,0,0,.4); --btn-fg:#10121E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#17150F; --papel-2:#201D16; --raya:#2E2A21; --margen:#5A3330;
+  --tinta:#F3EEE2; --tinta-2:#A79C8A; --pluma:#8EA6FF; --pluma-suave:#1E2440;
+  --rojo:#FF6B5E; --oro:#E0B251; --oro-suave:#2C2518; --verde:#6FD79B;
+  --borde:#332F25; --sombra:0 1px 0 rgba(0,0,0,.4); --btn-fg:#10121E;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+
+body{
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:var(--cuerpo);
+  font-size:16px;
+  line-height:1.45;
+  margin:0;
+  padding-bottom:calc(var(--nav-alto) + 28px);
+  -webkit-text-size-adjust:100%;
+}
+
+/* Banda superior pintada, para que nada se vea por debajo de la barra del sistema */
+body::before{
+  content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);
+  z-index:10;background:var(--papel);
+}
+
+/* Envoltura: centrada y angosta, pensada para celular */
+.hoja{
+  max-width:520px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 8px;
+}
+
+/* --- Encabezado pegajoso --- */
+.barra{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:9;
+  background:var(--papel);
+  border-bottom:1px solid var(--borde);
+}
+.barra-in{
+  max-width:520px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:10px;
+  display:flex;align-items:center;gap:10px;min-height:52px;
+}
+.barra h1{
+  font-family:var(--display);font-weight:400;font-size:22px;letter-spacing:.5px;
+  margin:0;text-transform:uppercase;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.volver{
+  font-family:var(--cuerpo);font-weight:600;font-size:15px;
+  background:none;border:1px solid var(--borde);color:var(--pluma);
+  border-radius:999px;padding:6px 12px;cursor:pointer;flex:none;
+}
+
+/* --- Tipografía de pantalla --- */
+.titulo{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.05;
+  letter-spacing:.5px;text-transform:uppercase;margin:18px 0 6px;text-wrap:balance}
+.sub{color:var(--tinta-2);margin:0 0 18px;font-size:15px}
+.rotulo{font-family:var(--dato);font-weight:700;text-transform:uppercase;
+  letter-spacing:1.2px;font-size:12px;color:var(--tinta-2);margin:22px 0 8px}
+
+/* --- Tarjetas con textura de hoja rayada --- */
+.tarjeta{
+  background:var(--papel-2);
+  border:1px solid var(--borde);
+  border-radius:var(--radio);
+  box-shadow:var(--sombra);
+  padding:14px;
+  margin-bottom:12px;
+}
+.tarjeta.rayada{
+  background-image:repeating-linear-gradient(var(--papel-2) 0 27px,var(--raya) 27px 28px);
+  background-position:0 6px;
+}
+.margen{border-left:3px solid var(--margen);padding-left:13px}
+
+/* --- Botones --- */
+.btn{
+  display:block;width:100%;text-align:center;cursor:pointer;
+  font-family:var(--dato);font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  font-size:17px;padding:14px;border-radius:var(--radio);
+  border:1px solid var(--pluma);background:var(--pluma);color:var(--btn-fg);
+  margin-bottom:10px;
+}
+.btn.fantasma{background:var(--papel-2);color:var(--pluma)}
+.btn.chico{font-size:14px;padding:9px 12px;width:auto;display:inline-block}
+.btn.gris{background:var(--papel-2);color:var(--tinta-2);border-color:var(--borde)}
+.btn.peligro{background:var(--papel-2);color:var(--rojo);border-color:var(--rojo)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* El botón OTRO, a propósito chillante */
+.btn-otro{
+  border:3px dashed var(--rojo);color:var(--rojo);
+  background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(179,38,30,.09) 10px 20px);
+  font-family:var(--display);letter-spacing:1.5px;font-size:18px;
+}
+.btn-otro small{display:block;font-family:var(--cuerpo);font-weight:500;
+  letter-spacing:0;text-transform:none;font-size:12px;color:var(--tinta-2);margin-top:2px}
+
+/* --- Opción grande (tipo tarjeta elegible) --- */
+.opcion{
+  width:100%;text-align:left;cursor:pointer;background:var(--papel-2);
+  border:1px solid var(--borde);border-radius:var(--radio);padding:16px;
+  margin-bottom:10px;font-family:var(--cuerpo);font-size:16px;color:var(--tinta);
+  display:block;
+}
+.opcion:disabled{opacity:.55;cursor:not-allowed}
+.opcion b{font-family:var(--display);font-weight:400;font-size:21px;
+  text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+.opcion span{color:var(--tinta-2);font-size:14px;display:block}
+.opcion.activa{border-color:var(--pluma);background:var(--pluma-suave)}
+
+/* --- Formularios --- */
+label.campo{display:block;margin-bottom:12px}
+label.campo span{display:block;font-family:var(--dato);font-weight:700;font-size:12px;
+  text-transform:uppercase;letter-spacing:1.2px;color:var(--tinta-2);margin-bottom:4px}
+input[type=text],input[type=number],input[type=date],select,textarea{
+  width:100%;font-family:var(--cuerpo);font-size:17px;color:var(--tinta);
+  background:var(--papel-2);border:1px solid var(--borde);border-radius:8px;
+  padding:11px 12px;
+}
+textarea{min-height:120px;font-size:13px;font-family:ui-monospace,Menlo,monospace}
+input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--pluma);outline-offset:2px}
+
+/* --- Lista de selección (ejercicios) --- */
+.chk{display:flex;align-items:center;gap:10px;padding:10px 2px;
+  border-bottom:1px solid var(--borde);cursor:pointer}
+.chk:last-child{border-bottom:none}
+.chk input{width:22px;height:22px;flex:none;accent-color:var(--pluma)}
+.chk .nom{flex:1;min-width:0;font-size:15px}
+
+/* --- Chips --- */
+.chip{display:inline-block;font-family:var(--dato);font-weight:600;font-size:11px;
+  text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:999px;
+  background:var(--pluma-suave);color:var(--pluma);border:1px solid var(--borde)}
+.chip.oro{background:var(--oro-suave);color:var(--oro)}
+.chip.rojo{background:transparent;color:var(--rojo);border-color:var(--rojo)}
+
+/* --- Tarjeta de ejercicio dentro de la sesión --- */
+.ej{border:1px solid var(--borde);border-radius:var(--radio);background:var(--papel-2);
+  padding:12px;margin-bottom:10px;box-shadow:var(--sombra)}
+.ej h3{margin:0 0 2px;font-size:17px;font-weight:600;line-height:1.2}
+.ej .ultima{font-family:var(--dato);font-size:14px;color:var(--tinta-2);margin:0 0 8px}
+.ej .ultima b{color:var(--tinta);font-weight:700;font-variant-numeric:tabular-nums}
+.series{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:4px}
+.series li{display:flex;align-items:center;gap:8px;font-family:var(--dato);font-size:16px;
+  font-variant-numeric:tabular-nums;background:var(--pluma-suave);border-radius:6px;padding:5px 8px}
+.series li .n{font-weight:700;color:var(--pluma);min-width:52px}
+.series li .v{flex:1;min-width:0}
+.series li .pr{color:var(--rojo);font-weight:700;font-size:12px;letter-spacing:.5px}
+.quitar{background:none;border:none;color:var(--tinta-2);font-size:18px;cursor:pointer;
+  padding:0 4px;line-height:1}
+
+/* Fila de captura peso / reps */
+.captura{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.paso{display:flex;align-items:center;gap:6px}
+.paso button{flex:none;width:40px;height:44px;border-radius:8px;border:1px solid var(--borde);
+  background:var(--papel);color:var(--pluma);font-size:22px;font-weight:700;cursor:pointer;line-height:1}
+.paso input{text-align:center;font-family:var(--dato);font-weight:700;font-size:20px;
+  font-variant-numeric:tabular-nums;padding:10px 2px;min-width:0}
+.cap-tit{font-family:var(--dato);font-weight:700;font-size:11px;text-transform:uppercase;
+  letter-spacing:1.2px;color:var(--tinta-2);margin-bottom:3px}
+
+/* --- Barra de pestañas --- */
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:12;
+  background:var(--papel-2);border-top:1px solid var(--borde);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  padding-left:max(0px,env(safe-area-inset-left,0px));
+  padding-right:max(0px,env(safe-area-inset-right,0px));
+}
+.nav-in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.nav button{
+  background:none;border:none;cursor:pointer;padding:9px 4px 10px;
+  font-family:var(--dato);font-weight:700;font-size:12px;text-transform:uppercase;
+  letter-spacing:1px;color:var(--tinta-2);display:flex;flex-direction:column;
+  align-items:center;gap:3px;border-top:3px solid transparent;margin-top:-1px;
+}
+.nav button .ic{font-size:20px;line-height:1}
+.nav button[aria-current="true"]{color:var(--pluma);border-top-color:var(--pluma)}
+
+/* --- Gráficas --- */
+.gfx{width:100%;height:auto;display:block;max-width:100%}
+.leyenda{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;font-family:var(--dato);
+  font-size:13px;color:var(--tinta-2)}
+.leyenda i{display:inline-block;width:14px;height:3px;border-radius:2px;
+  vertical-align:middle;margin-right:5px}
+
+/* --- Calendario --- */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal .dow{font-family:var(--dato);font-size:11px;font-weight:700;color:var(--tinta-2);
+  text-transform:uppercase;letter-spacing:.5px}
+.cal .d{aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:7px;font-family:var(--dato);font-size:14px;font-variant-numeric:tabular-nums;
+  background:var(--papel);border:1px solid var(--borde);color:var(--tinta-2)}
+.cal .d.hecho{background:var(--pluma);border-color:var(--pluma);color:var(--papel-2);font-weight:700}
+.cal .d.vacio{background:none;border:none}
+.cal .d.hoy{outline:2px solid var(--rojo);outline-offset:1px}
+
+/* --- Trofeos --- */
+.trofeos{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.trofeo{border:1px solid var(--borde);border-radius:var(--radio);padding:10px 8px;
+  text-align:center;background:var(--papel-2);min-width:0}
+.trofeo .ic{font-size:26px;line-height:1.1;filter:grayscale(1);opacity:.35}
+.trofeo .nm{font-family:var(--dato);font-weight:700;font-size:12px;line-height:1.15;
+  text-transform:uppercase;letter-spacing:.4px;margin-top:5px;color:var(--tinta-2);
+  overflow-wrap:anywhere}
+.trofeo .ds{font-size:11px;color:var(--tinta-2);margin-top:3px;line-height:1.25;opacity:.8}
+.trofeo.on{background:var(--oro-suave);border-color:var(--oro)}
+.trofeo.on .ic{filter:none;opacity:1}
+.trofeo.on .nm{color:var(--oro)}
+.trofeo.jamas{border-style:dashed;border-color:var(--rojo)}
+.trofeo.jamas .nm{color:var(--rojo)}
+
+/* --- Mapa de ejercicios (su propio mundo oscuro, como un árbol de habilidades) --- */
+.mapa{border:1px solid #232B36;border-radius:14px;overflow:hidden;background:#0E1116;margin-bottom:12px}
+.mapa .lienzo{overflow:auto;-webkit-overflow-scrolling:touch;max-height:64vh}
+.mapa svg{display:block}
+.mapa svg [data-act]{cursor:pointer}
+.mapa svg [data-act]:focus{outline:none}
+.mapa-pie{display:flex;gap:14px;flex-wrap:wrap;padding:9px 12px;border-top:1px solid #232B36;
+  color:#8A96A6;font-family:var(--dato);font-size:11.5px;text-transform:uppercase;letter-spacing:.9px}
+.mapa-pie i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.mapa-barra{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid #232B36}
+.mapa-barra span{color:#8A96A6;font-family:var(--dato);font-size:11.5px;text-transform:uppercase;letter-spacing:.9px;flex:1}
+.mapa-barra button{background:#1A2029;border:1px solid #333D4A;color:#C9D4E2;border-radius:999px;
+  padding:5px 11px;font-family:var(--dato);font-weight:700;font-size:11.5px;text-transform:uppercase;
+  letter-spacing:.9px;cursor:pointer}
+.mapa-barra button[aria-pressed="true"]{background:#3A2F12;border-color:#F2D35B;color:#F2D35B}
+
+/* --- Tarjeta para compartir --- */
+.compartir{
+  border-radius:14px;padding:20px 18px;margin-bottom:12px;
+  background:var(--tinta);color:var(--papel);
+  background-image:repeating-linear-gradient(45deg,transparent 0 14px,rgba(255,255,255,.035) 14px 28px);
+}
+.compartir .quien{font-family:var(--dato);font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;font-size:12px;opacity:.75}
+.compartir .grande{font-family:var(--display);font-size:clamp(26px,9vw,38px);line-height:1;
+  text-transform:uppercase;margin:8px 0;letter-spacing:.5px;text-wrap:balance}
+.compartir .frase{font-size:15px;opacity:.9;margin-top:10px}
+.compartir .pie{font-family:var(--dato);font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;opacity:.5;margin-top:14px}
+
+/* --- Avisos --- */
+.aviso{border-left:4px solid var(--rojo);background:var(--papel-2);border-radius:0 8px 8px 0;
+  padding:12px 14px;margin-bottom:14px;font-size:15px}
+.aviso b{display:block;font-family:var(--dato);text-transform:uppercase;letter-spacing:1px;
+  font-size:13px;color:var(--rojo);margin-bottom:3px}
+.ok{border-left-color:var(--verde)}
+.ok b{color:var(--verde)}
+
+.fila{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fila>*{min-width:0}
+.crece{flex:1;min-width:0}
+.num{font-variant-numeric:tabular-nums}
+.centro{text-align:center}
+.mini{font-size:13px;color:var(--tinta-2)}
+.nada{color:var(--tinta-2);text-align:center;padding:26px 10px;font-size:15px}
+
+@media (prefers-reduced-motion: no-preference){
+  .pop{animation:pop .25s ease-out}
+  @keyframes pop{from{transform:scale(.97);opacity:0}to{transform:none;opacity:1}}
+}
+
+
+/* ===========================================================
+   CLASES QUE ANTES ESTABAN ESCRITAS DENTRO DEL CÓDIGO
+   (antes eran style="..." en los archivos .js)
+   =========================================================== */
+
+/* --- Números y textos con estilo propio --- */
+.dato-grande{font-family:var(--dato);font-weight:700;font-size:18px}
+.numero-display{font-family:var(--display);font-size:26px}
+.avatar-grande{font-size:42px;line-height:1}
+.apodo{font-family:var(--display);font-size:24px;text-transform:uppercase;line-height:1.1}
+.dia-titulo{font-family:var(--dato);text-transform:uppercase;letter-spacing:1px}
+.diferencia{font-weight:700}
+.texto-verde{color:var(--verde)}
+.texto-rojo{color:var(--rojo)}
+.texto-gris{color:var(--tinta-2)}
+.compartir .frase.tenue{opacity:.75}
+
+/* --- Botones de grupo muscular que se marcan y desmarcan --- */
+.chip.chip-elegible{margin:0 6px 6px 0;cursor:pointer;background:var(--papel);color:var(--tinta-2)}
+.chip.chip-elegible.elegido{background:var(--pluma);color:var(--papel-2);border-color:var(--pluma)}
+.chip.ajustado{max-width:max-content}
+
+/* --- Botones para elegir avatar --- */
+.opcion.avatar{width:auto;padding:10px 12px;font-size:26px;margin:0}
+
+/* --- Renglones del punto de partida (alta) --- */
+.renglon-base{padding:8px 0;border-bottom:1px solid var(--borde)}
+.nombre-base{font-size:15px;margin-bottom:6px}
+
+/* --- Cajitas de colores del mapa y de las gráficas --- */
+.mapa-pie .punto-encendido{background:#F2D35B}
+.mapa-pie .punto-trabado{background:#161C25;border:1.5px solid #F2D35B}
+.mapa-pie .punto-libre{background:#161C25;border:1.5px solid #7C8CA0}
+.mapa-pie .punto-bloqueado{background:#161C25;border:1.5px solid #303A47}
+.leyenda .leyenda-linea{background:var(--rojo)}
+.leyenda .leyenda-barra{background:var(--pluma);opacity:.4;height:9px}
+
+/* --- Avisos --- */
+.aviso.dorado{border-left-color:var(--oro)}
+.aviso.dorado b{color:var(--oro)}
+
+/* --- Acomodo y espacios ---
+   Van al final a propósito: así ganan sobre los estilos de arriba. */
+.fila.junta{gap:8px}
+.fila.alineado-arriba{align-items:flex-start}
+.fila-separada{margin-top:10px;border-top:1px solid var(--borde);padding-top:10px}
+.sin-encoger{flex:none}
+.a-la-derecha{text-align:right}
+.btn.ancho-completo{width:100%}
+.aclaracion{margin:-4px 0 14px}
+.aclaracion-grafica{margin:-4px 0 12px}
+.separado-6{margin:6px 0}
+.nota-nodo{margin-top:8px}
+.nota-nodo-fila{margin-top:6px}
+.sin-margen,label.campo.sin-margen{margin:0}
+.arriba-4{margin-top:4px}
+.arriba-6{margin-top:6px}
+.arriba-8{margin-top:8px}
+.arriba-10{margin-top:10px}
+.arriba-14{margin-top:14px}
+.arriba-16{margin-top:16px}
+.abajo-4{margin-bottom:4px}
+.abajo-6{margin-bottom:6px}
+.abajo-8{margin-bottom:8px}
+.abajo-12{margin-bottom:12px}
+.abajo-16{margin-bottom:16px}

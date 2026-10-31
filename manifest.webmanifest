@@ -1,0 +1,15 @@
+{
+  "name": "El Verdadero",
+  "short_name": "El Verdadero",
+  "description": "Libreta de gimnasio: anota peso y repeticiones de cada serie y mira tu progreso real.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF6EC",
+  "theme_color": "#FBF6EC",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
